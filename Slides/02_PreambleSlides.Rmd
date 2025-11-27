@@ -1,7 +1,8 @@
 ---
 title: "Introduction to single-cell RNA-seq analysis - Data sets and analyses"
-date: "September 2022"
+date: "November 2025"
 output:
+  beamer_presentation: default
   ioslides_presentation:
     widescreen: true
     smaller: true
@@ -13,12 +14,10 @@ output:
 
 * Childhood acute lymphoblastic leukemia (cALL)
   * [Caron et al. 2020](https://www.nature.com/articles/s41598-020-64929-x)
-  * the most common pediatric cancer
-  * characterized by bone marrow lymphoid precursors
-  * that acquire genetic alterations,
-  * resulting in disrupted maturation and uncontrollable proliferation 
-  * up to 85–90% of patients are cured
-  * others do not respond to treatment or relapse and die
+  * The most common pediatric cancer
+  * Characterized by bone marrow lymphoid precursors that acquire genetic alterations,resulting in disrupted maturation and uncontrollable proliferation 
+  * Up to 85–90% of patients are cured
+  * Others do not respond to treatment or relapse and die
   * **Aim**: characterise the heterogeneity of gene expression at the cell level, within and between patients
   * **cells**: Bone Marrow Mononuclear cells (BMMCs)
 
