@@ -17,6 +17,7 @@ library(AnnotationHub)
 library(BiocParallel)
 library(tidyverse)
 knitr::opts_chunk$set(error=FALSE, message=FALSE, warning=FALSE, cache=TRUE)
+knitr::opts_knit$set(root.dir = '../course_files')
 set.seed(123)
 ```
 

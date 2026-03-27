@@ -17,10 +17,10 @@ library(tidyverse)
 bp.params <- MulticoreParam(workers = 7)
 
 # load sample sheet
-samplesheet <- read_tsv("data/sample_sheet.tsv")
+samplesheet <- read_tsv("Data/sample_sheet.tsv")
 
 # create vector of file paths with names
-list_of_files <- str_c("data/cellranger/", 
+list_of_files <- str_c("Data/Cellranger_Outputs/", 
                        samplesheet$Sample, 
                        "/outs/filtered_feature_bc_matrix")
 names(list_of_files) <- samplesheet$Sample
@@ -40,14 +40,14 @@ sce <- sce[detected_genes,]
 # Annotate genes
 
 # or just get the info from the GTF
-gtf <- "data/references/refdata-gex-GRCh38.p13-Gencode.v41/genes/genes.gtf.gz"
+gtf <- "Data/references/gencode.v41.primary_assembly.annotation.mod_id.gtf.gz"
 annot <- readGFF(gtf, 
                  columns="seqid", 
                  tags="gene_id", 
                  filter=list(type="gene")) %>%
     rename(ID = gene_id, Chromosome = seqid)
 
-rowData(sce) <- merge(rowData(sce), annot, by = "ID", sort=FALSE)
+rowData(sce) <- merge(rowData(sce), annot, by = "ID", sort=FALSE, all.x=TRUE)
 rownames(rowData(sce)) <- rowData(sce)$ID
 
 
@@ -72,7 +72,7 @@ colData(sce) <- colData(sce)[,1:4]
 is.mito <- rowData(sce)$Chromosome%in%c("chrM", "MT")
 sce <- addPerCellQC(sce, subsets=list(Mito=is.mito), BPPARAM = bp.params)
 
-saveRDS(sce, "data/R_objects/Caron_filtered.full.rds")
+saveRDS(sce, "R_objects/Caron_filtered.full.rds")
 
 # Now sub-sample to 500 cells per sample
 
@@ -95,5 +95,5 @@ is.mito <- rowData(sce.sub)$Chromosome%in%c("chrM", "MT")
 sce.sub <- addPerCellQC(sce.sub, subsets=list(Mito=is.mito), BPPARAM = bp.params)
 
 # Write object to file
-saveRDS(sce.sub, "data/R_objects/Caron_filtered.500.rds")
+saveRDS(sce.sub, "R_objects/Caron_filtered.500.rds")
 

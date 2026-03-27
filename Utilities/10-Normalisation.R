@@ -19,7 +19,7 @@ bpp <- MulticoreParam(8)
 ## Full data set
 
 # Load the data
-sce <- readRDS("data/R_objects/Caron_filtered.full.rds")
+sce <- readRDS("R_objects/Caron_filtered.full.rds")
 
 # cluster cells
 set.seed(100) 
@@ -32,12 +32,12 @@ sce <- computePooledFactors(sce, cluster=clust, min.mean=0.1)
 sce <- logNormCounts(sce)
 
 # save normalised object
-saveRDS(sce, "data/R_objects/Caron_normalized.full.rds")
+saveRDS(sce, "R_objects/Caron_normalized.full.rds")
 
 ## 500 cell/sample data set
 
 # Load the data
-sce <- readRDS("data/R_objects/Caron_filtered.500.rds")
+sce <- readRDS("R_objects/Caron_filtered.500.rds")
 
 # cluster cells
 set.seed(100) 
@@ -50,4 +50,4 @@ sce <- computePooledFactors(sce, cluster=clust, min.mean=0.1)
 sce <- logNormCounts(sce)
 
 # save normalised object
-saveRDS(sce, "data/R_objects/Caron_normalized.500.rds")
+saveRDS(sce, "R_objects/Caron_normalized.500.rds")

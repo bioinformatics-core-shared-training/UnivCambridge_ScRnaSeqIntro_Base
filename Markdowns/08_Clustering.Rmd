@@ -23,6 +23,7 @@ library(tidyverse)
 library(DT)
 
 opts_chunk$set(error=FALSE, message=FALSE, warning=FALSE, cache=TRUE)
+knitr::opts_knit$set(root.dir = '../course_files')
 set.seed(123)
 ```
 
