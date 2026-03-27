@@ -1,12 +1,14 @@
 ---
 title: "Alignment and feature counting"
-date: 'September 2022'
+date: "November 2025"
 output:
+  beamer_presentation: default
   ioslides_presentation:
     widescreen: true
     smaller: true
     logo: Images/uniOfCamCrukLogos.png
     css: css/stylesheet.css
+  slidy_presentation: default
 ---
 
 ## Single Cell RNAseq Analysis Workflow
@@ -34,12 +36,14 @@ knitr::include_graphics('Images/workflow2.png')
 
 ## 10x single-cell isolation
 
-<div style="display: flex; justify-content: center; margin-top: -10px;">
-  <img src="https://cdn.10xgenomics.com/image/upload/v1709930681/blog/GEM-X%20Launch%20blog/Figure_1.png" 
-      style="width: 720px; height: auto">
-</div>
+```{r echo=FALSE, out.width='100%', fig.align='center'}
+knitr::include_graphics('Images/10x_cell_isolation.png')
+```
 
-Image by [10x Genomics](https://www.10xgenomics.com/blog/the-next-generation-of-single-cell-rna-seq-an-introduction-to-gem-x-technology)
+Image from https://wp.unil.ch/gtf/single-cell-experiments-10x/
+
+
+
 
 ## 10x library file structure
 
@@ -47,13 +51,19 @@ The 10x library contains four pieces of information, in the form of DNA sequence
 for each "read".
 
 * **sample index** - identifies the library, with one or two indexes per sample
-* **10x barcode** -  identifies the droplet in the library
-* **UMI** - identifies the transcript molecule within a cell and gene
+* **10x barcode (BC)** -  identifies the droplet in the library
+* **UMI (Unique Molecular Identifier)** - identifies the transcript molecule within a cell and gene
 * **insert** - the transcript molecule
 
-```{r echo=FALSE, out.width='60%', fig.align='center'}
-knitr::include_graphics('Images/tenxLibStructureV3dual2.png')
+```{r echo=FALSE, out.width='80%', fig.align='center'}
+knitr::include_graphics('Images/3_prime_gene_exp_lib_structure.png')
 ```
+
+* TruSeq Read 1: Read 1 primer
+* TruSeq Read 2: Read 2 primer
+* P5 and P7 are short DNA adapter sequences that allow the library to bind to the Illumina flow cell
+
+Image from [10x Genomics](https://kb.10xgenomics.com/s/article/360000939852-What-is-the-difference-between-Single-Cell-3-and-5-Gene-Expression-libraries)
 
 ## Raw fastq files
 
@@ -65,8 +75,8 @@ files:
 * **R1**: 10x barcode + UMI
 * **R2**: insert sequence
 
-```{r echo=FALSE, out.width='60%', fig.align='center'}
-knitr::include_graphics('Images/tenxLibStructureV3dual2.png')
+```{r echo=FALSE, out.width='80%', fig.align='center'}
+knitr::include_graphics('Images/3_prime_gene_exp_lib_structure.png')
 ```
 
 ## QC of Raw Reads - FASTQC
