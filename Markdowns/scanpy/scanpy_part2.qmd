@@ -1,0 +1,84 @@
+---
+title: "Introduction to single-cell RNA-seq analysis"
+subtitle: "Python/scanpy workflow"
+jupyter:
+  kernelspec:
+    name: "conda-env-scverse-py"
+    language: "python"
+    display_name: "scverse"
+execute: 
+  cache: true
+format:
+  html:
+    toc: true
+    toc-location: left
+    number-sections: true
+    embed-resources: true
+---
+
+## Setup
+
+We start by importing our packages:
+
+```{python}
+import numpy as np
+from scipy.stats import median_abs_deviation
+from scipy.sparse import csr_matrix
+import pandas as pd
+import scanpy as sc
+import anndata as ad
+import pybiomart as bm
+import seaborn as sns
+
+# set plotting theme
+sns.set_theme()
+```
+
+```{python}
+#| echo: false
+import os
+os.chdir("../../course_files")
+```
+
+We also import the data we preprocessed in part I. 
+To save computational time, we will use a dataset with a subset of 500 cells per sample. 
+Of course, in your real data analysis you would use your full dataset.
+
+```{python}
+adata = sc.read_h5ad("preprocessed/scanpy/caron_filtered_500.hdf5")
+```
+
+
+## Dimensionality reduction
+
+```{python}
+sc.pp.highly_variable_genes(adata, n_top_genes=2000, batch_key="sample_id")
+```
+
+```{python}
+sns.scatterplot(x="means", y="dispersions_norm", hue="highly_variable", 
+                data=adata.var)
+```
+
+```{python}
+sc.pp.pca(adata, svd_solver="arpack", mask_var=adata.var["highly_variable"])
+sc.pl.pca_scatter(adata, color="sample_name")
+```
+
+```{python}
+sc.pl.pca_variance_ratio(adata, n_pcs=50, log=True)
+```
+
+```{python}
+sc.tl.tsne(adata, use_rep="X_pca")
+# visualise
+sc.pl.tsne(adata, color="sample_name")
+```
+
+```{python}
+sc.pp.neighbors(adata, use_rep="X_pca")
+sc.tl.umap(adata)
+# visualise
+sc.pl.umap(adata, color="sample_name")
+```
+
